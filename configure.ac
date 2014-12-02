@@ -156,6 +156,12 @@ AC_CHECK_LIB(socket,socket,SOCKETLIBS="$SOCKETLIBS -lsocket")
 AC_CHECK_LIB(resolv,main,SOCKETLIBS="$SOCKETLIBS -lresolv")
 AC_SUBST(SOCKETLIBS)
 
+dnl Check for POSIX thread libraries
+AC_CHECK_HEADERS(pthread.h)
+AC_CHECK_LIB(pthread,pthread_create,THRLIBS="-lpthread",
+             AC_CHECK_LIB(pthread,pthread_create,THRLIBS="-lpthread -lrt",-lrt))
+AC_SUBST(THRLIBS)
+
 dnl
 dnl check for math-related functions needing -lm
 AC_CHECK_HEADERS(math.h)
